@@ -68,6 +68,15 @@ def register_draft_registration(auth, node, draft_id, *args, **kwargs):
     data = request.get_json()
 
     draft = get_draft_or_fail(draft_id)
+    # TODO(hryback): Figure out how a 'prereg prize' registration draft
+    # gets approved and makes it to this point... Does it require approval?
+    #
+    # If so by whom and is it possible to remove the approval email process
+    # by simply having everything be a registration 'draft' ?
+    #
+    # I don't think that a having a draft would allow other admins to see a
+    # 'live' version of the proposed registration like they currently can
+    # for a registration that is `pending embargo`
     register = draft.register(auth)
 
     if data.get('registrationChoice', 'immediate') == 'embargo':
@@ -88,6 +97,13 @@ def register_draft_registration(auth, node, draft_id, *args, **kwargs):
             }
             register.archive_job.save()
     else:
+        # TODO(hrybacki): Overwrite this to call `register.get_registration_approval`
+        # or some such function. Inside that function, initiate the approval mechanism
+        # and send emails
+        #
+        # Note that this won't be necessary if we can use the 'draft approval' mechanisms
+        # already in place -- but this would limit the admins ability to review the
+        # registration as noted in the comments above.
         register.set_privacy('public', auth, log=False)
         for child in register.get_descendants_recursive(lambda n: n.primary):
             child.set_privacy('public', auth, log=False)

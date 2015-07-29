@@ -521,6 +521,10 @@ var SocialViewModel = function(urls, modes) {
         self, 'github', 'https://github.com/'
     );
 
+    self.twitterVerify = function() {
+        console.log('pew pew bitches');
+    };
+
     self.trackedProperties = [
         self.personal,
         self.orcid,

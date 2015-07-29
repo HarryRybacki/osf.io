@@ -31,8 +31,13 @@
             <div class="form-group">
                 <label>Twitter</label>
                 <div class="input-group">
-                <span class="input-group-addon">@</span>
-                <input class="form-control" data-bind="value: twitter" placeholder="twitterhandle"/>
+                    <span class="input-group-addon">@</span>
+                    <input class="form-control" data-bind="value: twitter" placeholder="twitterhandle" readonly />
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" type="button" data-bind="click: twitterVerify">Verify</button>
+                        <button class="btn btn-default" type="button" data-bind="click: twitterClear">Clear</button>
+                        <button class="btn btn-default" type="button"><i class="glyphicon glyphicon-link"></i></button>
+                    </span>
                 </div>
             </div>
 
